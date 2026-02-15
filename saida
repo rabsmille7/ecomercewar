@@ -1,0 +1,78 @@
+CXodifo ewm ingles: 
+
+
+# 1. Import the tool (The Random Forest)
+from sklearn.ensemble import RandomForestClassifier
+
+# 2. Our training data (Store History)
+# Each list is a customer: [Bought Lego?, Bought Toy Car?, Bought Book?]
+# 1 means YES, 0 means NO
+past_purchases = [
+    [1, 0, 0],  # Customer A: Lego only
+    [0, 1, 1],  # Customer B: Toy Car and Book
+    [1, 1, 0],  # Customer C: Lego and Toy Car
+    [0, 0, 1]   # Customer D: Book only
+]
+
+# The result: Did they like the Robot?
+# [Yes, No, Yes, No]
+liked_robot = [1, 0, 1, 0]
+
+# 3. Create the Forest with 100 trees (helpers)
+model = RandomForestClassifier(n_estimators=100)
+
+# 4. TRAIN: The model studies the patterns above
+model.fit(past_purchases, liked_robot)
+
+# 5. TEST with a new customer who bought ONLY LEGO [1, 0, 0]
+new_customer = [[1, 0, 0]]
+prediction = model.predict(new_customer)
+probability = model.predict_proba(new_customer)
+
+# 6. SHOW THE RESULT
+print(f"Prediction (1=Yes, 0=No): {prediction[0]}")
+print(f"Confidence: {probability[0][1] * 100}% chance they will like it!")
+
+
+------------------------------
+
+Explicação - 
+
+
+Esse erro aconteceu porque o seu "robô" (o Python) ainda não tem as peças da "floresta" instaladas na caixa de ferramentas dele. O `ModuleNotFoundError: No module named 'sklearn'` significa que a biblioteca **scikit-learn** não está instalada no seu Codespace.
+
+Como você está usando o **VS Code (Codespace)**, vamos resolver isso rapidinho usando o **Terminal** (essa parte preta onde apareceu o erro).
+
+---
+
+### Como resolver o erro (Passo a passo):
+
+1. Clique no **Terminal** (onde você leu o erro).
+2. Digite o comando abaixo e aperte **Enter**:
+
+```bash
+pip install scikit-learn
+
+```
+
+3. Espere uns segundos. Você verá umas barras carregando. Isso é o computador baixando a "caixa de ferramentas" para você.
+4. Depois que terminar, tente rodar o seu código novamente clicando no botão de **Play** ou digitando:
+`python sugar.py`
+
+---
+
+### Por que isso aconteceu? (Explicação de 10 anos)
+
+Imagine que o Python é como um **videogame novo**. Ele vem com os controles básicos, mas se você quiser jogar um jogo de corrida específico (que no nosso caso é a Ciência de Dados), você precisa colocar o **cartucho** desse jogo.
+
+* O **`pip install`** é como se você estivesse indo na loja baixar o cartucho.
+* O **`sklearn`** é o nome do cartucho que tem todas as fórmulas matemáticas da Floresta Aleatória.
+
+### Uma dica importante para o VS Code:
+
+Às vezes, o VS Code tem vários "Pythons" instalados. Se você instalou e o erro continuar, olhe no **canto inferior direito** do VS Code. Lá costuma aparecer a versão do Python (ex: 3.10.x). Clique ali e veja se você está usando o mesmo onde instalou a biblioteca.
+
+**Conseguiu rodar o comando `pip install scikit-learn`? Me avise se aparecer outra mensagem de erro!**
+
+
+
